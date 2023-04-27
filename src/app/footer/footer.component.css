@@ -1,0 +1,70 @@
+/***********FOOTER*********/
+
+footer {
+    background: #131313;
+    height: auto;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-top: 40px;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.footer-content h3 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 3rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.footer-content p {
+    max-width: 500px;
+    margin: 10px auto;
+    filter: invert(100%) sepia(0%) saturate(7479%) hue-rotate(108deg) brightness(99%) contrast(99%);
+}
+
+.socials {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 3rem 0;
+}
+
+.socials li {
+    margin: 0 10px;
+    filter: invert(100%) sepia(0%) saturate(7479%) hue-rotate(108deg) brightness(99%) contrast(99%);
+}
+
+.socials img {
+    width: 3rem;
+}
+
+.socials a {
+    transition: opacity 1s ease;
+}
+
+.socials a:hover {
+    opacity: 0.5;
+}
+
+.footer-bottom {
+    background: #212020;
+    padding: 20px 0 5px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+}

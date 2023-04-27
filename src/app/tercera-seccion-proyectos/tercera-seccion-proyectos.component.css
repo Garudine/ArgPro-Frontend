@@ -1,0 +1,21 @@
+.proyecto-hover {
+    opacity: 0;
+    text-align: center;
+    transition: 0.5s;
+    background-color: #000000e1 !important;
+    overflow: auto;
+}
+
+.proyecto-hover:hover {
+    opacity: 1;
+}
+
+button {
+    margin: 5px;
+    transition: 0.5s;
+}
+
+button:hover {
+    background-color: #ecb0ae;
+    border-color: #ecb0ae;
+}

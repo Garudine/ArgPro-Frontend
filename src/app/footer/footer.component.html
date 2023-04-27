@@ -1,0 +1,15 @@
+<footer>
+    <div class="footer-content">
+        <h3>{{ datosFooter.footerNombre }}</h3>
+        <p><img src="/assets/images/ap-logo.png" style="margin-left: -20%" /></p>
+        <ul class="socials">
+            <li *ngFor="let red of redesList">
+                <a [href]=red.url target="_blank"><img [src]=red.icono [alt]=red.textoAlternativo /></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer-bottom">
+        <p>Copyright ©2023. Todos los derechos reservados.</p>
+    </div>
+</footer>

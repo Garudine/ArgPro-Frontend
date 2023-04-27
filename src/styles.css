@@ -1,1 +1,131 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+* {
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 50px;
+}
+
+body {
+    background-color: #f8edeb;
+    color: #000000;
+    font-family: "Roboto", sans-serif;
+}
+
+section {
+    padding: 4% 10%;
+}
+
+.section-par {
+    background-color: #fcd5ce;
+}
+
+#banner-hover {
+    opacity: 0;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: 1s;
+}
+
+.icono-hover {
+    color: white;
+    float: right;
+    padding: 10px;
+    margin: 30px;
+    background-color: #000000;
+    border-radius: 999px;
+    box-shadow: 5px 5px 0px white;
+}
+
+#banner-hover:hover {
+    opacity: 1;
+}
+
+/*********SECTIONS GENERAL**********/
+
+.titulo h2 {
+    font-size: 50px;
+    font-family: "Amiri", serif;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.titulo h2::before,
+.titulo h2::after {
+    background-color: #333;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+
+.titulo h2::before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+
+.titulo h2::after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+
+.secciones-interior {
+    margin: 5%;
+    text-align: center;
+    padding-bottom: 50px;
+    max-width: 70%;
+    min-height: 500px;
+}
+
+.iconos {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.carousel .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
+
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+    text-align: left;
+}
+
+ul.timeline>li {
+    margin-bottom: 0px;
+    padding: 20px;
+    border-bottom: 5px solid #b48181;
+    background-color: #ffffff7c;
+    min-width: 600px;
+}
+
+ul.timeline a {
+    color: #000000;
+    text-decoration: none;
+    text-align: right !important;
+}
+
+.myCustomModalClass .modal-dialog {
+    max-width: 400px;
+}

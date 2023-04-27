@@ -1,0 +1,31 @@
+<section id="Proyectos">
+    <div class="titulo" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1100">
+        <h2>Proyectos</h2>
+    </div>
+    <div class="container-fluid" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1100">
+        <div class="row">
+            <div class="col" *ngFor="let proyecto of proyectosList">
+                <div class="card bg-dark text-white">
+                    <img [src]=proyecto.imagenProyecto class="card-img" [alt]=proyecto.altImagen />
+                    <div
+                        class="card-img-overlay proyecto-hover d-flex flex-column justify-content-center align-items-center">
+                        <h5 class="card-title">
+                            <strong>{{ proyecto.titulo }}</strong>
+                        </h5>
+                        <br />
+                        <p>
+                            <strong><i>{{ proyecto.fecha }}</i></strong>
+                        </p>
+                        <p class="card-text">
+                            {{ proyecto.descripcion }}
+                        </p>
+                        <div>
+                            <a [href]=boton.url target="_blank" *ngFor="let boton of proyecto.repositorios">
+                                <button class="btn btn-light"> {{ boton.nombre }}</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
