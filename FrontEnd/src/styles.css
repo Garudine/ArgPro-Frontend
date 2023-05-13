@@ -97,7 +97,7 @@ section {
     float: right;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 60px;
 }
 
 .carousel .carousel-indicators button {

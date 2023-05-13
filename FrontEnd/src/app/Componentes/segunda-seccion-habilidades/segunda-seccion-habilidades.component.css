@@ -1,0 +1,46 @@
+.caja-exp {
+    padding: 50px;
+}
+
+.label-tab {
+    color: #171717 !important;
+    font-family: "Roboto", sans-serif !important;
+    font-style: italic !important;
+    font-weight: bolder !important;
+    font-size: 22px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+}
+
+.spinner-container {
+    position: relative;
+}
+
+.spinner-background {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    line-height: 110px;
+    text-align: center;
+    overflow: hidden;
+    border-color: #fff;
+    font-size: 30px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 12px;
+    background-color: #44484b;
+    color: #fff;
+}
+
+.custom-spinner circle {
+    stroke: #b48181 !important;
+}
+
+.spinner-label {
+    font-weight: bolder;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: -10px;
+}

@@ -1,0 +1,138 @@
+/*******HERO HEADER*******/
+
+#hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+    position: relative;
+}
+
+#hero-texto {
+    width: 40%;
+    background-color: #ffffff;
+    box-shadow: -20px 20px 0px black;
+    text-transform: uppercase;
+}
+
+#hero-texto h2 {
+    font-family: "Alata", sans-serif;
+    font-weight: 400;
+    font-size: 200%;
+    line-height: 50px;
+    text-align: center;
+    margin-bottom: -3%;
+    margin-top: 3%;
+}
+
+#hero-texto p {
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 150%;
+    line-height: 50px;
+    text-align: center;
+}
+
+/****NAV****/
+
+#navegacion {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 700;
+    font-size: 3vh;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    color: #ffffff;
+    background: #000;
+    z-index: 3;
+}
+
+#sticky {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 700;
+    font-size: 3vh;
+    text-transform: uppercase;
+    z-index: 99;
+    position: fixed;
+    padding: 1em;
+    width: 100%;
+    height: 9%;
+    background: #000;
+    color: #fff;
+}
+
+#sticky a {
+    color: #ffffff;
+}
+
+#navegacion a {
+    color: #ffffff;
+}
+
+.nav-item a {
+    color: #ffffff;
+    text-decoration: none;
+    background-image: linear-gradient(#fec89a, #fec89a);
+    background-size: 0 2px, auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    transition: all 0.2s ease-out;
+}
+
+.nav-item a:hover {
+    background-size: 100% 2px, auto;
+}
+
+#resaltado {
+    color: #fec89a !important;
+    cursor: pointer;
+}
+
+/*******************LOGIN Y EDIT****************/
+
+.myform {
+    padding: 2em;
+    max-width: 100%;
+    color: #fff;
+}
+
+.myform h1 {
+    font-size: 2.3em;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.form-control {
+    background-color: inherit;
+    color: #fff;
+    padding-left: 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #fff;
+}
+
+.form-control:focus {
+    box-shadow: inset 0 -1px 0 #7e7e7e;
+}
+
+.myform .btn {
+    width: 100%;
+    font-weight: 800;
+    border-radius: 0;
+    padding: 0.5em 0;
+}
+
+.myform .btn:hover {
+    background-color: inherit;
+    color: #fff;
+    border-color: #fff;
+}
+
+@media (max-width: 576px) {
+    .myform {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}

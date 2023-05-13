@@ -1,0 +1,140 @@
+<div class="caja-exp">
+    <ul class="timeline">
+        <li *ngFor="let Experiencia of laboral">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <strong>{{ Experiencia.puestoE }} | {{ Experiencia.lugarE }}</strong>
+                        <br />
+                        <a><b>{{ Experiencia.anioInicioE }} - {{ Experiencia.anioFinE }}</b></a>
+                        <p>
+                            <em>{{ Experiencia.descripcionE }}</em>
+                        </p>
+                    </div>
+                    <div class="col-md-3 100 ">
+                        <div class="iconos" *ngIf="estaLogeado">
+                            <mat-icon style="cursor: pointer;" data-bs-target="#modalExperiencia"
+                                (click)="onEditar(Experiencia)" (click)="editModal(EditLaboral)">create</mat-icon>
+                            <mat-icon style="cursor: pointer;" (click)="onEliminar(Experiencia.id)">delete</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li *ngIf="estaLogeado">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6 500" (click)="editModal(CrearLaboral)">
+                        <img src="/assets/images/plus.png" style="cursor: pointer;" class="add-sign"
+                            alt="Una imagen de una cruz en png de color negro, la cual al hacer click agrega un nuevo elemento." />
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+<!------------ CREAR NUEVA EXPERIENCIA ----------->
+
+<ng-template #CrearLaboral let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Crear Nueva Experiencia</h1>
+
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="lugarE" class="form-label">Lugar</label>
+                    <input type="text" class="form-control" id="lugarE" name="lugarE" aria-describedby="lugarE"
+                        [(ngModel)]="lugarE" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="puestoE" class="form-label">Puesto</label>
+                    <input type="text" class="form-control" id="puestoE" name="puestoE" aria-describedby="puestoE"
+                        [(ngModel)]="puestoE" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioInicioE" class="form-label">Año Inicio</label>
+                        <input type="text" class="form-control" id="anioInicioE" name="anioInicioE"
+                            aria-describedby="anioInicioE" [(ngModel)]="anioInicioE" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioFinE" class="form-label">Año Fin</label>
+                        <input type="text" class="form-control" id="anioFinE" name="anioFinE"
+                            aria-describedby="anioFinE" [(ngModel)]="anioFinE" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descripcionE" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descripcionE" name="descripcionE"
+                        aria-describedby="descripcionE" [(ngModel)]="descripcionE" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
+
+<!-------------- EDITAR NUEVA EXPERIENCIA ------------------>
+
+<ng-template #EditLaboral let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark" id="modalExperiencia">
+        <h1 class="text-center">Editar Experiencia</h1>
+
+        <form [formGroup]="formexpe">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="lugarEInput" class="form-label">Lugar</label>
+                    <input type="text" class="form-control" id="lugarEInput" formControlName="lugarE"
+                        aria-describedby="lugarE" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="puestoEInput" class="form-label">Puesto</label>
+                    <input type="text" class="form-control" id="puestoEInput" formControlName="puestoE"
+                        aria-describedby="puestoE" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioInicioEInput" class="form-label">Año Inicio</label>
+                        <input type="text" class="form-control" id="anioInicioEInput" formControlName="anioInicioE"
+                            aria-describedby="anioInicioE" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioFinEInput" class="form-label">Año Fin</label>
+                        <input type="text" class="form-control" id="anioFinEInput" formControlName="anioFinE"
+                            aria-describedby="anioFinE" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descripcionEInput" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descripcionEInput" formControlName="descripcionE"
+                        aria-describedby="descripcionE" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light" (click)="onSubmit()">Actualizar</button>
+        </form>
+    </div>
+</ng-template>

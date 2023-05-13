@@ -1,9 +1,4 @@
 {
-  "nombre": "Ivanna",
-  "apellido": "de Rodt",
-  "puesto": "Full Stack Developer JR.",
-  "headerBanner": "/assets/images/fondogatos.jpg",
-  "fotoWelcome": "/assets/images/Bienvenida.jpg",
   "habilidades": [
     { "id": 0, "nombre": "HTML 5", "porcentaje": "80" },
     { "id": 1, "nombre": "CSS 3", "porcentaje": "70" },
@@ -46,24 +41,6 @@
       "anioInicio": "2006",
       "anioFinal": "2010",
       "descripcion": "Secundario Bachiller, Graduado."
-    }
-  ],
-  "laboral": [
-    {
-      "id": 0,
-      "puesto": "Secretaria",
-      "lugar": "Fundación C.G Jung.",
-      "anioInicio": "2014",
-      "anioFinal": "2017",
-      "descripcion": "Agenda y coordinación de horarios para los alumnos y los profesores. Monitoreo y reposición de insumos. Principal encargada de caja y mantenimiento del inventario de la fundación. Manejo de las redes sociales y correo."
-    },
-    {
-      "id": 1,
-      "puesto": "Operadora",
-      "lugar": "Call Center Movistar.",
-      "anioInicio": "2010",
-      "anioFinal": "2012",
-      "descripcion": "Transcripción de audio a texto, tanto en español como en inglés. Servicios variados acorde a las necesidades del cliente. Telemarketing."
     }
   ],
   "proyectos": [

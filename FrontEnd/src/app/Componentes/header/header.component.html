@@ -1,0 +1,128 @@
+<header>
+    <nav class="navbar navbar-expand-lg" id="sticky" aria-label="sticky navbar">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-around">
+                    <div class="row">
+                        <div class="col">
+                            <li class="nav-item">
+                                <a class="nav-link" id="resaltado" (click)="loginModal(loginmodal)"
+                                    *ngIf="!EstaLoggeado">Login</a>
+                                <a class="nav-link" id="resaltado" (click)="onLogout()" *ngIf="EstaLoggeado">Logout</a>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Inicio</a>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Experiencia">Experiencia</a>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Proyectos">Proyectos</a>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Contacto">Contacto</a>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="hero" [style.background-image]="'url('+datosBasicos.imgBanner+')'">
+        <div id="hero-texto">
+            <h2>¡HOLA! SOY {{ datosBasicos.nombre }} {{ datosBasicos.apellido }}</h2>
+            <p>{{ datosBasicos.puesto }}</p>
+        </div>
+        <div id="banner-hover" *ngIf="EstaLoggeado">
+            <div class="icono-hover">
+                <mat-icon (click)="loginModal(editmodal)" style="cursor:pointer;">create</mat-icon>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- NAVEGACIÓN -->
+
+<nav class="navbar navbar-expand-lg" id="navegacion" aria-label="fixed navbar">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-around">
+                <div class="row">
+                    <div class="col">
+                        <li class="nav-item">
+                            <a class="nav-link" id="resaltado" (click)="loginModal(loginmodal)"
+                                *ngIf="!EstaLoggeado">Login</a>
+                            <a class="nav-link" id="resaltado" (click)="onLogout()" *ngIf="EstaLoggeado">Logout</a>
+                        </li>
+                    </div>
+                    <div class="col">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Inicio</a>
+                        </li>
+                    </div>
+                    <div class="col">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Experiencia">Experiencia</a>
+                        </li>
+                    </div>
+                    <div class="col">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Proyectos">Proyectos</a>
+                        </li>
+                    </div>
+                    <div class="col">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Contacto">Contacto</a>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!------------ LOGIN ----------->
+
+<ng-template #loginmodal let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Inicio de Sesión</h1>
+
+        <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Usuario</label>
+                <input type="email" name="nombreUsuario" class="form-control" [(ngModel)]="nombreUsuario" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" name="password" class="form-control" [(ngModel)]="password" required />
+            </div>
+            <button type="submit" class="btn btn-light">Enviar</button>
+        </form>
+
+    </div>
+</ng-template>
+
+
+<!------------ EDIT ----------->
+
+<ng-template #editmodal let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Cambiar Imagen</h1>
+
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">URL</label>
+                <input type="url" class="form-control" id="url" aria-describedby="url">
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
