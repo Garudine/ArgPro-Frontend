@@ -1,6 +1,6 @@
 <div class="caja-exp">
-    <ul class="timeline">
-        <li *ngFor="let Experiencia of laboral">
+    <ul class="timeline" cdkDropList (cdkDropListDropped)="drop($event)">
+        <li *ngFor="let Experiencia of laboral.slice().reverse()" [cdkDragDisabled]="!estaLogeado" cdkDrag>
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
@@ -11,11 +11,12 @@
                             <em>{{ Experiencia.descripcionE }}</em>
                         </p>
                     </div>
-                    <div class="col-md-3 100 ">
-                        <div class="iconos" *ngIf="estaLogeado">
+                    <div class=" col-md-3 100 ">
+                        <div class=" iconos" *ngIf="estaLogeado">
                             <mat-icon style="cursor: pointer;" data-bs-target="#modalExperiencia"
                                 (click)="onEditar(Experiencia)" (click)="editModal(EditLaboral)">create</mat-icon>
                             <mat-icon style="cursor: pointer;" (click)="onEliminar(Experiencia.id)">delete</mat-icon>
+                            <mat-icon cdkDragHandle style="cursor: grab;"> drag_indicator</mat-icon>
                         </div>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
 
 <ng-template #CrearLaboral let-modal class="modal-dialog modal-dialog-centered">
     <div class="myform bg-dark">
-        <h1 class="text-center">Crear Nueva Experiencia</h1>
+        <h1 class="text-center">Nueva Experiencia</h1>
 
         <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
             <div class="col-12">

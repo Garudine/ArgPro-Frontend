@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,23 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("explab")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ExperienciaController {
+
     @Autowired
     SExperiencia sExperiencia;
-    
+
     @GetMapping("/lista")
-    public ResponseEntity<List<Experiencia>> list(){
+    public ResponseEntity<List<Experiencia>> list() {
         List<Experiencia> list = sExperiencia.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
-    
+
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Experiencia> getById(@PathVariable("id") int id){
-        if(!sExperiencia.existById(id))
+    public ResponseEntity<Experiencia> getById(@PathVariable("id") int id) {
+        if (!sExperiencia.existById(id)) {
             return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+        }
         Experiencia experiencia = sExperiencia.getOne(id).get();
         return new ResponseEntity(experiencia, HttpStatus.OK);
     }
-    
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         if (!sExperiencia.existById(id)) {
@@ -48,40 +52,71 @@ public class ExperienciaController {
         sExperiencia.delete(id);
         return new ResponseEntity(new Mensaje("Experiencia eliminada"), HttpStatus.OK);
     }
-    
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody dtoExperiencia dtoexp) {
-        if(StringUtils.isBlank(dtoexp.getLugarE()))
+        if (StringUtils.isBlank(dtoexp.getLugarE())) {
             return new ResponseEntity(new Mensaje("El lugar es obligatorio"), HttpStatus.BAD_REQUEST);
-        if(sExperiencia.existByLugarE(dtoexp.getLugarE()))
+        }
+        if (sExperiencia.existByLugarE(dtoexp.getLugarE())) {
             return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
-        
+        }
+        if (StringUtils.isBlank(dtoexp.getPuestoE())) {
+            return new ResponseEntity(new Mensaje("El puesto es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getAnioInicioE())) {
+            return new ResponseEntity(new Mensaje("El año de inico es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getAnioFinE())) {
+            return new ResponseEntity(new Mensaje("El año final es obligatorio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getDescripcionE())) {
+            return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
+        }
         Experiencia experiencia = new Experiencia(dtoexp.getLugarE(), dtoexp.getDescripcionE(), dtoexp.getPuestoE(), dtoexp.getAnioInicioE(), dtoexp.getAnioFinE());
         sExperiencia.save(experiencia);
-        
+
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
     }
-   
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoExperiencia dtoexp) {
-        if(!sExperiencia.existById(id))
+        if (!sExperiencia.existById(id)) {
             return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
-        
-        if(sExperiencia.existByLugarE(dtoexp.getLugarE()) && sExperiencia.getByLugarE(dtoexp.getLugarE()).get().getId() != id)
+        }
+
+        if (sExperiencia.existByLugarE(dtoexp.getLugarE()) && sExperiencia.getByLugarE(dtoexp.getLugarE()).get().getId() != id) {
             return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
-        
-        if(StringUtils.isBlank(dtoexp.getLugarE()))
-            return new ResponseEntity(new Mensaje ("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-        
+        }
+
+        if (StringUtils.isBlank(dtoexp.getLugarE())) {
+            return new ResponseEntity(new Mensaje("El campo del lugar no puede estar vacio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getPuestoE())) {
+            return new ResponseEntity(new Mensaje("El campo del puesto no puede estar vacio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getAnioInicioE())) {
+            return new ResponseEntity(new Mensaje("El campo del año inicio no puede estar vacio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getAnioFinE())) {
+            return new ResponseEntity(new Mensaje("El campo del año final no puede estar vacio"), HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(dtoexp.getDescripcionE())) {
+            return new ResponseEntity(new Mensaje("El campo descripción no puede estar vacio"), HttpStatus.BAD_REQUEST);
+        }
+
         Experiencia experiencia = sExperiencia.getOne(id).get();
+
         experiencia.setLugarE(dtoexp.getLugarE());
         experiencia.setPuestoE(dtoexp.getPuestoE());
         experiencia.setDescripcionE(dtoexp.getDescripcionE());
         experiencia.setAnioInicioE(dtoexp.getAnioInicioE());
         experiencia.setAnioFinE(dtoexp.getAnioFinE());
-        
+
         sExperiencia.save(experiencia);
         return new ResponseEntity(new Mensaje("Experiencia actualizada"), HttpStatus.OK);
     }
-        
+
 }

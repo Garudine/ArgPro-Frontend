@@ -1,10 +1,10 @@
 export class datosBasicos {
-  id?: number;
-  nombre: string;
-  apellido: string;
-  imgBanner: string;
-  puesto: string;
-  imgPerfil: string;
+  id?: number = 0;
+  nombre: string = '';
+  apellido: string = '';
+  imgBanner: string = '';
+  puesto: string = '';
+  imgPerfil: string = '';
 
   constructor(
     nombre: string,

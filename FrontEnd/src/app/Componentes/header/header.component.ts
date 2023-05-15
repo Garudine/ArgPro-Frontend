@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PortfolioService } from '../../servicios/portfolio.service';
 import { datosBasicos } from 'src/app/model/persona.model';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/servicios/token.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -23,12 +24,27 @@ export class HeaderComponent implements OnInit {
   errMsj!: string;
   loggedIn: boolean = false;
 
+  //VAR GUARDAR
+  @Input() datosbasicos: datosBasicos = new datosBasicos('', '', '', '', '');
+  @Output() onUpdatePersona: EventEmitter<datosBasicos> = new EventEmitter();
+  formdatos: FormGroup;
+
   constructor(
     private modalService: NgbModal,
     public portfolioService: PortfolioService,
     private tokenService: TokenService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private formBuilder: FormBuilder
+  ) {
+    this.formdatos = this.formBuilder.group({
+      id: [0, [Validators.required]],
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      puesto: ['', [Validators.required]],
+      imgBanner: ['', [Validators.required]],
+      imgPerfil: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.portfolioService.getPersona().subscribe((data) => {
@@ -69,6 +85,27 @@ export class HeaderComponent implements OnInit {
     this.tokenService.logOut();
     window.location.reload();
   }
+
+  // EDITAR EXPERIENCIAS
+
+  onEditar(datosbasicos: datosBasicos): void {
+    this.formdatos.patchValue(this.datosBasicos);
+  }
+
+  onSubmit(): void {
+    let copiaPersona: datosBasicos = { ...this.datosBasicos };
+    let personaForm: datosBasicos = this.formdatos.value;
+
+    copiaPersona.nombre = personaForm.nombre;
+    copiaPersona.apellido = personaForm.apellido;
+    copiaPersona.puesto = personaForm.puesto;
+    copiaPersona.imgBanner = personaForm.imgBanner;
+    copiaPersona.imgPerfil = personaForm.imgPerfil;
+
+    this.onUpdatePersona.emit(copiaPersona);
+  }
+
+  /// MODAL
 
   loginModal(content: any) {
     this.modalService

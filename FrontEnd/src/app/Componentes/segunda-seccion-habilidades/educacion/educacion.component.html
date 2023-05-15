@@ -1,1 +1,123 @@
-<p>educacion works!</p>
+<div class="caja-exp">
+    <ul class="timeline" cdkDropList (cdkDropListDropped)="drop($event)">
+        <li *ngFor="let Educacion of educacion.slice().reverse()" [cdkDragDisabled]="!estaLogeado" cdkDrag>
+            <div class="container-sm">
+                <div class="row d-flex">
+                    <div class="col-md-9">
+                        <strong>{{ Educacion.nombreEdu }}</strong> <br />
+                        <a><b>{{ Educacion.anioInicioEdu }} - {{ Educacion.anioFinEdu }}</b></a>
+                        <p><em>{{ Educacion.descripcionEdu }}</em></p>
+                    </div>
+                    <div class="col-md-3 100">
+                        <div class="iconos" *ngIf="estaLogeado">
+                            <mat-icon style="cursor: pointer;" data-bs-target="#modalEducacion"
+                                (click)="onEditar(Educacion)" (click)="editModal(EditEducacion)">create</mat-icon>
+                            <mat-icon style="cursor: pointer;" (click)="onEliminar(Educacion.id)">delete</mat-icon>
+                            <mat-icon cdkDragHandle style="cursor: grab;"> drag_indicator</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li *ngIf="estaLogeado">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-6 500" (click)="editModal(CrearEducacion)">
+                        <img src="/assets/images/plus.png" style="cursor: pointer;" class="add-sign"
+                            alt="imagen png de una cruz, la cual al hacer click se añadirá un nuevo elemento." />
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!------------ CREAR NUEVA EDUCACION ----------->
+
+<ng-template #CrearEducacion let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Nueva Educacion</h1>
+
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="nombreEdu" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreEdu" name="nombreEdu" aria-describedby="nombreEdu"
+                        [(ngModel)]="nombreEdu" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioInicioEdu" class="form-label">Año Inicio</label>
+                        <input type="text" class="form-control" id="anioInicioEdu" name="anioInicioEdu"
+                            aria-describedby="anioInicioEdu" [(ngModel)]="anioInicioEdu" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioFinEdu" class="form-label">Año Fin</label>
+                        <input type="text" class="form-control" id="anioFinEdu" name="anioFinEdu"
+                            aria-describedby="anioFinEdu" [(ngModel)]="anioFinEdu" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descripcionEdu" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descripcionEdu" name="descripcionEdu"
+                        aria-describedby="descripcionEdu" [(ngModel)]="descripcionEdu" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
+
+<!-------------- EDITAR EDUCACION ------------------>
+
+<ng-template #EditEducacion let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark" id="modalEducacion">
+        <h1 class="text-center">Editar Educación</h1>
+
+        <form [formGroup]="formedu">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="nombreEduInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreEduInput" formControlName="nombreEdu"
+                        aria-describedby="nombreEdu" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioInicioEduInput" class="form-label">Año Inicio</label>
+                        <input type="text" class="form-control" id="anioInicioEduInput" formControlName="anioInicioEdu"
+                            aria-describedby="anioInicioEdu" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="anioFinEduInput" class="form-label">Año Fin</label>
+                        <input type="text" class="form-control" id="anioFinEduInput" formControlName="anioFinEdu"
+                            aria-describedby="anioFinEdu" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descripcionEduInput" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descripcionEduInput" formControlName="descripcionEdu"
+                        aria-describedby="descripcionEdu" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light" (click)="onSubmit()">Actualizar</button>
+        </form>
+    </div>
+</ng-template>

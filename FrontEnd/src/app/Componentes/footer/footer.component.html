@@ -1,10 +1,31 @@
 <footer>
     <div class="footer-content">
-        <h3>{{ datosFooter.footerNombre }}</h3>
+        <h3>Ivanna von Rodt</h3>
         <p><img src="/assets/images/ap-logo.png" style="margin-left: -20%" alt="Logo de Argentina Programa" /></p>
         <ul class="socials">
-            <li *ngFor="let red of redesList">
-                <a [href]=red.url target="_blank"><img [src]=red.icono [alt]=red.textoAlternativo /></a>
+            <li *ngFor="let RedesFooter of redes">
+                <a [href]=RedesFooter.urlRed target="_blank"><img [src]=RedesFooter.iconoRed
+                        [alt]=RedesFooter.textoAltRed /></a>
+                <div class="iconosSpinner" *ngIf="estaLogeado">
+                    <mat-icon style="cursor: pointer;" data-bs-target="#modalRed" (click)="onEditar(RedesFooter)"
+                        (click)="editModal(EditRed)">create</mat-icon>
+                    <mat-icon style="cursor: pointer;" (click)="onEliminar(RedesFooter.id)">delete</mat-icon>
+                </div>
+            </li>
+            <br>
+            <li *ngIf="estaLogeado">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6 500" (click)="editModal(CrearRed)">
+                            <img src="/assets/images/plus.png" style="cursor: pointer;" class="add-sign"
+                                alt="imagen png de una cruz, la cual al hacer click se añadirá un nuevo elemento." />
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -13,3 +34,73 @@
         <p>Copyright ©2023. Todos los derechos reservados.</p>
     </div>
 </footer>
+
+<!------------ CREAR NUEVA RED ----------->
+
+<ng-template #CrearRed let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Nueva Red</h1>
+
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="textoAltRed" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="textoAltRed" name="textoAltRed"
+                        aria-describedby="textoAltRed" [(ngModel)]="textoAltRed" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="iconoRed" class="form-label">Icono</label>
+                        <input type="text" class="form-control" id="iconoRed" name="iconoRed"
+                            aria-describedby="iconoRed" [(ngModel)]="iconoRed" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="urlRed" class="form-label">URL</label>
+                        <input type="text" class="form-control" id="urlRed" name="urlRed" aria-describedby="urlRed"
+                            [(ngModel)]="urlRed" required>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
+
+<!-------------- EDITAR RED ------------------>
+
+<ng-template #EditRed let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark" id="modalRed">
+        <h1 class="text-center">Editar Red</h1>
+
+        <form [formGroup]="formred">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="textoAltRedInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="textoAltRedInput" formControlName="textoAltRed"
+                        aria-describedby="textoAltRed" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="iconoRedInput" class="form-label">Icono</label>
+                        <input type="text" class="form-control" id="iconoRedInput" formControlName="iconoRed"
+                            aria-describedby="iconoRed" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="urlRedInput" class="form-label">URL</label>
+                        <input type="text" class="form-control" id="urlRedInput" formControlName="urlRed"
+                            aria-describedby="urlRed" required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light" (click)="onSubmit()">Actualizar</button>
+        </form>
+    </div>
+</ng-template>

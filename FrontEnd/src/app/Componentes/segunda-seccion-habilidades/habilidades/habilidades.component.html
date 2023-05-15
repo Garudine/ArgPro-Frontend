@@ -1,1 +1,85 @@
-<p>habilidades works!</p>
+<div class="caja-exp" style="margin-top: 30px;">
+    <div class="container d-flex justify-content-center padding">
+        <div class="row">
+            <div class="col-2" *ngFor="let Habilidades of habilidades">
+                <div class="spinner-container">
+                    <div class="spinner-background">{{spinner.value}}%
+                    </div>
+                    <mat-progress-spinner #spinner class="custom-spinner" mode="determinate"
+                        [value]=Habilidades.porcentajeHab diameter="130" strokeWidth="13">
+                    </mat-progress-spinner>
+                    <div class="spinner-label">
+                        {{ Habilidades.nombreHab}}
+                        <div class="iconosSpinner" *ngIf="estaLogeado">
+                            <mat-icon style="cursor: pointer;" data-bs-target="#modalHabilidad"
+                                (click)="onEditar(Habilidades)" (click)="editModal(EditHabilidad)">create</mat-icon>
+                            <mat-icon style="cursor: pointer;" (click)="onEliminar(Habilidades.id)">delete</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center padding">
+        <div class="row" *ngIf="estaLogeado">
+            <div class="col-md-12" (click)="editModal(CrearHabilidad)">
+                <div class="card bg-light" style="margin-top: 10px;">
+                    <img src="/assets/images/plus.png" style="cursor: pointer;" class="add-sign"
+                        alt="imagen png de una cruz, la cual al hacer click se añadirá un nuevo elemento." />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------ CREAR NUEVA EDUCACION ----------->
+
+<ng-template #CrearHabilidad let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Nueva Habilidad</h1>
+
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="nombreHab" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreHab" name="nombreHab" aria-describedby="nombreHab"
+                        [(ngModel)]="nombreHab" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="porcentajeHab" class="form-label">Porcentaje</label>
+                    <input type="text" class="form-control" id="porcentajeHab" name="porcentajeHab"
+                        aria-describedby="porcentajeHab" [(ngModel)]="porcentajeHab" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
+
+<!-------------- EDITAR EDUCACION ------------------>
+
+<ng-template #EditHabilidad let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark" id="modalHabilidad">
+        <h1 class="text-center">Editar Proyecto</h1>
+
+        <form [formGroup]="formhabi">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="nombreHabInput" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreHabInput" formControlName="nombreHab"
+                        aria-describedby="nombreHab" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="porcentajeHabInput" class="form-label">Porcentaje</label>
+                    <input type="text" class="form-control" id="porcentajeHabInput" formControlName="porcentajeHab"
+                        aria-describedby="porcentajeHab" required>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light" (click)="onSubmit()">Actualizar</button>
+        </form>
+    </div>
+</ng-template>

@@ -25,6 +25,8 @@ import { LaboralComponent } from './Componentes/segunda-seccion-habilidades/labo
 import { EducacionComponent } from './Componentes/segunda-seccion-habilidades/educacion/educacion.component';
 import { HabilidadesComponent } from './Componentes/segunda-seccion-habilidades/habilidades/habilidades.component';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { HabilidadesComponent } from './Componentes/segunda-seccion-habilidades/
     MatIconModule,
     NgbModule,
     ReactiveFormsModule,
+    DragDropModule,
   ],
   providers: [InterceptorProvider],
   bootstrap: [AppComponent],

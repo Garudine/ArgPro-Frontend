@@ -97,7 +97,7 @@ section {
     float: right;
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 20px;
 }
 
 .carousel .carousel-indicators button {
@@ -110,6 +110,10 @@ ul.timeline {
     list-style-type: none;
     position: relative;
     text-align: left;
+    width: 80%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 ul.timeline>li {
@@ -117,7 +121,6 @@ ul.timeline>li {
     padding: 20px;
     border-bottom: 5px solid #b48181;
     background-color: #ffffff7c;
-    min-width: 600px;
 }
 
 ul.timeline a {

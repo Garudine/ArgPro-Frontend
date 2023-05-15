@@ -4,28 +4,175 @@
     </div>
     <div class="container-fluid" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1100">
         <div class="row">
-            <div class="col-6" *ngFor="let proyecto of proyectosList">
+            <div class="col-6" *ngFor="let Proyectos of proyectos">
                 <div class="card bg-dark text-white">
-                    <img [src]=proyecto.imagenProyecto class="card-img" [alt]=proyecto.altImagen />
+                    <img [src]=Proyectos.imagenPro class="card-img" [alt]=Proyectos.altImagenPro />
                     <div
                         class="card-img-overlay proyecto-hover d-flex flex-column justify-content-center align-items-center">
                         <h5 class="card-title">
-                            <strong>{{ proyecto.titulo }}</strong>
+                            <strong>{{ Proyectos.tituloPro }}</strong>
                         </h5>
                         <br />
                         <p>
-                            <strong><i>{{ proyecto.fecha }}</i></strong>
+                            <strong><i>{{ Proyectos.fechaPro }}</i></strong>
                         </p>
                         <p class="card-text">
-                            {{ proyecto.descripcion }}
+                            {{ Proyectos.descriPro }}
                         </p>
                         <div>
-                            <a [href]=boton.url target="_blank" *ngFor="let boton of proyecto.repositorios">
-                                <button class="btn btn-light"> {{ boton.nombre }}</button></a>
+                            <a [href]=Proyectos.urlBotPro target="_blank">
+                                <button class="btn btn-light"> {{ Proyectos.nombreBotPro }}</button></a>
+                        </div>
+                        <div *ngIf="estaLogeado">
+                            <button class="btn btn-light" data-bs-target="#modalProyecto" (click)="onEditar(Proyectos)"
+                                (click)="editModal(EditProyecto)"> Editar </button>
+                            <button class="btn btn-light" (click)="onEliminar(Proyectos.id)"> Eliminar </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="estaLogeado">
+            <div class="col-md-12" (click)="editModal(CrearProyecto)">
+                <div class="card bg-light" style="margin-top: 10px;">
+                    <img src="/assets/images/plus.png" style="cursor: pointer;" class="add-sign"
+                        alt="imagen png de una cruz, la cual al hacer click se añadirá un nuevo elemento." />
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<!------------ CREAR NUEVA EDUCACION ----------->
+
+<ng-template #CrearProyecto let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark">
+        <h1 class="text-center">Nuevo Proyecto</h1>
+
+        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="imagenPro" class="form-label">URL Imagen Proyecto</label>
+                    <input type="text" class="form-control" id="imagenPro" name="imagenPro" aria-describedby="imagenPro"
+                        [(ngModel)]="imagenPro" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="altImagenPro" class="form-label">Texto Alternativo Imagen</label>
+                    <input type="text" class="form-control" id="altImagenPro" name="altImagenPro"
+                        aria-describedby="altImagenPro" [(ngModel)]="altImagenPro" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="tituloPro" class="form-label">Titulo del Proyecto</label>
+                        <input type="text" class="form-control" id="tituloPro" name="tituloPro"
+                            aria-describedby="tituloPro" [(ngModel)]="tituloPro" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="fechaPro" class="form-label">Fecha del Proyecto</label>
+                        <input type="text" class="form-control" id="fechaPro" name="fechaPro"
+                            aria-describedby="fechaPro" [(ngModel)]="fechaPro" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descriPro" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descriPro" name="descriPro"
+                        aria-describedby="descriPro" [(ngModel)]="descriPro" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="urlBotPro" class="form-label">URL Repositorio</label>
+                        <input type="text" class="form-control" id="urlBotPro" name="urlBotPro"
+                            aria-describedby="urlBotPro" [(ngModel)]="urlBotPro" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="nombreBotPro" class="form-label">Nombre Repositorio</label>
+                        <input type="text" class="form-control" id="nombreBotPro" name="nombreBotPro"
+                            aria-describedby="nombreBotPro" [(ngModel)]="nombreBotPro" required>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-light">Guardar</button>
+        </form>
+    </div>
+</ng-template>
+
+<!-------------- EDITAR EDUCACION ------------------>
+
+<ng-template #EditProyecto let-modal class="modal-dialog modal-dialog-centered">
+    <div class="myform bg-dark" id="modalProyecto">
+        <h1 class="text-center">Editar Proyecto</h1>
+
+        <form [formGroup]="formproye">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="imagenProInput" class="form-label">URL Imagen Proyecto</label>
+                    <input type="text" class="form-control" id="imagenProInput" formControlName="imagenPro"
+                        aria-describedby="imagenPro" required>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="altImagenProInput" class="form-label">Texto Alternativo Imagen</label>
+                    <input type="text" class="form-control" id="altImagenProInput" formControlName="altImagenPro"
+                        aria-describedby="altImagenPro" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="tituloProInput" class="form-label">Titulo del Proyecto</label>
+                        <input type="text" class="form-control" id="tituloProInput" formControlName="tituloPro"
+                            aria-describedby="tituloPro" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="fechaProInput" class="form-label">Fecha del Proyecto</label>
+                        <input type="text" class="form-control" id="fechaProInput" formControlName="fechaPro"
+                            aria-describedby="fechaPro" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="descriProInput" class="form-label">Descripción</label>
+                    <input type="message" class="form-control" id="descriProInput" formControlName="descriPro"
+                        aria-describedby="descriPro" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="urlBotProInput" class="form-label">URL Repositorio</label>
+                        <input type="text" class="form-control" id="urlBotProInput" formControlName="urlBotPro"
+                            aria-describedby="urlBotPro" required>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="nombreBotProInput" class="form-label">Nombre Repositorio</label>
+                        <input type="text" class="form-control" id="nombreBotProInput" formControlName="nombreBotPro"
+                            aria-describedby="nombreBotPro" required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-light" (click)="onSubmit()">Actualizar</button>
+        </form>
+    </div>
+</ng-template>
