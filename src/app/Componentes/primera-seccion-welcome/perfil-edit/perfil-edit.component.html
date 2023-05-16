@@ -1,0 +1,15 @@
+<div *ngIf="perfil">
+    <div class="FormBody">
+        <div class="myform bg-dark">
+            <h1 class="text-center">Cambiar Datos</h1>
+            <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+                <div class="mb-3">
+                    <label for="imgPerfil" class="form-label">Imagen Perfil</label>
+                    <input type="file" class="form-control" id="imgPerfil" (change)="uploadImagePerfil($event)"
+                        accept=".jpg, .jpeg, .png, .svg" name="imgPerfil">
+                </div>
+                <button type="submit" class="btn btn-light">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>

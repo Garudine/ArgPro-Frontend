@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -26,6 +26,13 @@ import { EducacionComponent } from './Componentes/segunda-seccion-habilidades/ed
 import { HabilidadesComponent } from './Componentes/segunda-seccion-habilidades/habilidades/habilidades.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoaderComponent } from './loader/loader.component';
+import { LoadingInterceptor } from './loader/loading.interceptor';
+import { HeaderEditComponent } from './Componentes/header/header-edit/header-edit.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { PerfilEditComponent } from './Componentes/primera-seccion-welcome/perfil-edit/perfil-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +48,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     LaboralComponent,
     EducacionComponent,
     HabilidadesComponent,
+    LoaderComponent,
+    HeaderEditComponent,
+    PerfilEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,8 +64,17 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NgbModule,
     ReactiveFormsModule,
     DragDropModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
-  providers: [InterceptorProvider],
+  providers: [
+    InterceptorProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

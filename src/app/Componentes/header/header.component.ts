@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PortfolioService } from '../../servicios/portfolio.service';
 import { datosBasicos } from 'src/app/model/persona.model';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/servicios/token.service';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  // VAR DATOS
+  datos: datosBasicos = null;
+
   closeResult!: string;
-  datosBasicos: datosBasicos = new datosBasicos('', '', '', '', '');
   EstaLoggeado = false;
   LoggeoFallido = false;
   loginUsuario!: LoginUsuario;
@@ -24,32 +25,15 @@ export class HeaderComponent implements OnInit {
   errMsj!: string;
   loggedIn: boolean = false;
 
-  //VAR GUARDAR
-  @Input() datosbasicos: datosBasicos = new datosBasicos('', '', '', '', '');
-  @Output() onUpdatePersona: EventEmitter<datosBasicos> = new EventEmitter();
-  formdatos: FormGroup;
-
   constructor(
     private modalService: NgbModal,
-    public portfolioService: PortfolioService,
+    public datosService: PortfolioService,
     private tokenService: TokenService,
-    private authService: AuthService,
-    private formBuilder: FormBuilder
-  ) {
-    this.formdatos = this.formBuilder.group({
-      id: [0, [Validators.required]],
-      nombre: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
-      puesto: ['', [Validators.required]],
-      imgBanner: ['', [Validators.required]],
-      imgPerfil: ['', [Validators.required]],
-    });
-  }
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.portfolioService.getPersona().subscribe((data) => {
-      this.datosBasicos = data;
-    });
+    this.cargarDatos();
 
     if (this.tokenService.getToken()) {
       this.EstaLoggeado = true;
@@ -59,6 +43,8 @@ export class HeaderComponent implements OnInit {
       this.EstaLoggeado = false;
     }
   }
+
+  ///LOGIN, NO TOCAR
 
   onLogin(): void {
     this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
@@ -86,23 +72,13 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
   }
 
-  // EDITAR EXPERIENCIAS
-
-  onEditar(datosbasicos: datosBasicos): void {
-    this.formdatos.patchValue(this.datosBasicos);
-  }
-
-  onSubmit(): void {
-    let copiaPersona: datosBasicos = { ...this.datosBasicos };
-    let personaForm: datosBasicos = this.formdatos.value;
-
-    copiaPersona.nombre = personaForm.nombre;
-    copiaPersona.apellido = personaForm.apellido;
-    copiaPersona.puesto = personaForm.puesto;
-    copiaPersona.imgBanner = personaForm.imgBanner;
-    copiaPersona.imgPerfil = personaForm.imgPerfil;
-
-    this.onUpdatePersona.emit(copiaPersona);
+  ///CARGAR LA DATA DEL BACKEND
+  cargarDatos(): void {
+    this.datosService.detail(1).subscribe({
+      next: (data) => {
+        this.datos = data;
+      },
+    });
   }
 
   /// MODAL

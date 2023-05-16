@@ -36,15 +36,14 @@
             </div>
         </div>
     </nav>
-    <div id="hero" [style.background-image]="'url('+datosBasicos.imgBanner+')'">
+    <div id="hero" [style.background-image]="'url('+datos.imgBanner+')'">
         <div id="hero-texto">
-            <h2>¡HOLA! SOY {{ datosBasicos.nombre }} {{ datosBasicos.apellido }}</h2>
-            <p>{{ datosBasicos.puesto }}</p>
+            <h2>¡HOLA! SOY {{ datos.nombre }} {{ datos.apellido }}</h2>
+            <p>{{ datos.puesto }}</p>
         </div>
         <div id="banner-hover" *ngIf="EstaLoggeado">
             <div class="icono-hover">
-                <mat-icon (click)="loginModal(editmodal)" (click)="onEditar(datosBasicos)"
-                    style="cursor:pointer;">create</mat-icon>
+                <a href="/editdatos/1"> <mat-icon style="cursor:pointer;">create</mat-icon></a>
             </div>
         </div>
     </div>
@@ -108,23 +107,5 @@
             <button type="submit" class="btn btn-light">Enviar</button>
         </form>
 
-    </div>
-</ng-template>
-
-
-<!------------ EDIT ----------->
-
-<ng-template #editmodal let-modal class="modal-dialog modal-dialog-centered">
-    <div class="myform bg-dark">
-        <h1 class="text-center">Cambiar Imagen</h1>
-
-        <form [formGroup]="formdatos">
-            <div class="mb-3">
-                <label for="imgBannerInput" class="form-label">URL</label>
-                <input type="url" class="form-control" id="imgBannerInput" formControlName="imgBanner"
-                    aria-describedby="url">
-            </div>
-            <button type="button" class="btn btn-light" (click)="onSubmit()">Guardar</button>
-        </form>
     </div>
 </ng-template>

@@ -1,0 +1,30 @@
+<!------------ EDIT ----------->
+<div *ngIf="persona">
+    <div class="FormBody">
+        <div class="myform bg-dark">
+            <h1 class="text-center">Cambiar Datos</h1>
+
+            <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" [(ngModel)]="persona.nombre" name="nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" [(ngModel)]="persona.apellido"
+                        name="apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="puesto" class="form-label">Puesto</label>
+                    <input type="text" class="form-control" id="puesto" [(ngModel)]="persona.puesto" name="puesto">
+                </div>
+                <div class="mb-3">
+                    <label for="imgBanner" class="form-label">Imagen Banner</label>
+                    <input type="file" class="form-control" id="imgBanner" (change)="uploadImageBanner($event)"
+                        accept=".jpg, .jpeg, .png, .svg" name="imgBanner">
+                </div>
+                <button type="submit" class="btn btn-light">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>

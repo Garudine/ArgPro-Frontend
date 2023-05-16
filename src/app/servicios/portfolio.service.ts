@@ -2,34 +2,33 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { datosBasicos } from '../model/persona.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PortfolioService {
-  URL = 'http://localhost:8080/personas/';
+  URL = environment.URL + 'personas/';
 
   constructor(private httpClient: HttpClient) {}
 
-  obtenerDatos(): Observable<any> {
-    return this.httpClient.get('assets/data/data.json');
+  public lista(): Observable<datosBasicos[]> {
+    return this.httpClient.get<datosBasicos[]>(this.URL + 'lista');
   }
 
-  public getPersona(): Observable<datosBasicos> {
-    return this.httpClient.get<datosBasicos>(this.URL + 'traer/perfil');
+  public detail(id: number): Observable<datosBasicos> {
+    return this.httpClient.get<datosBasicos>(this.URL + `detail/${id}`);
   }
 
-  guardarDatosBasicos(
-    datosBasicosActualizados: datosBasicos,
-    iddatosBasicos: number
-  ): Observable<datosBasicos> {
-    return this.httpClient.put<datosBasicos>(
-      `${this.URL}editar/${iddatosBasicos}`,
-      datosBasicosActualizados
-    );
+  public save(datosbasicos: datosBasicos): Observable<any> {
+    return this.httpClient.post<any>(this.URL + 'create', datosbasicos);
   }
 
-  nuevosDatosBasicos(datosbasicos: datosBasicos): Observable<datosBasicos> {
-    return this.httpClient.post<datosBasicos>(`${this.URL}`, datosbasicos);
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(this.URL + `delete/${id}`);
+  }
+
+  public update(id: number, datosbasicos: datosBasicos): Observable<any> {
+    return this.httpClient.put<any>(this.URL + `update/${id}`, datosbasicos);
   }
 }

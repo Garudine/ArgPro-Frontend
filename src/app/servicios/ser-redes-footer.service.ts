@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RedesFooter } from '../model/redes-footer';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SerRedesFooterService {
-  redURL = 'http://localhost:8080/redesfoo/';
+  redURL = environment.URL + 'redesfoo/';
 
   constructor(private httpClient: HttpClient) {}
 
