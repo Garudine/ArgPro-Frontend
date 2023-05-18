@@ -13,22 +13,22 @@
                         </div>
                         <div class="col">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Inicio</a>
+                                <a class="nav-link" (click)="onClick('hero')">Inicio</a>
                             </li>
                         </div>
                         <div class="col">
                             <li class="nav-item">
-                                <a class="nav-link" href="#Experiencia">Experiencia</a>
+                                <a class="nav-link" (click)="onClick('Experiencia')">Experiencia</a>
                             </li>
                         </div>
                         <div class="col">
                             <li class="nav-item">
-                                <a class="nav-link" href="#Proyectos">Proyectos</a>
+                                <a class="nav-link" (click)="onClick('Proyectos')">Proyectos</a>
                             </li>
                         </div>
                         <div class="col">
                             <li class="nav-item">
-                                <a class="nav-link" href="#Contacto">Contacto</a>
+                                <a class="nav-link" (click)="onClick('Contacto')">Contacto</a>
                             </li>
                         </div>
                     </div>
@@ -43,7 +43,8 @@
         </div>
         <div id="banner-hover" *ngIf="EstaLoggeado">
             <div class="icono-hover">
-                <a href="/editdatos/1"> <mat-icon style="cursor:pointer;">create</mat-icon></a>
+                <a routerLink="/editdatos/1" fragment="editDatos"> <mat-icon
+                        style="cursor:pointer;">create</mat-icon></a>
             </div>
         </div>
     </div>
@@ -64,22 +65,22 @@
                     </div>
                     <div class="col">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Inicio</a>
+                            <a class="nav-link" (click)="onClick('hero')">Inicio</a>
                         </li>
                     </div>
                     <div class="col">
                         <li class="nav-item">
-                            <a class="nav-link" href="#Experiencia">Experiencia</a>
+                            <a class="nav-link" (click)="onClick('Experiencia')">Experiencia</a>
                         </li>
                     </div>
                     <div class="col">
                         <li class="nav-item">
-                            <a class="nav-link" href="#Proyectos">Proyectos</a>
+                            <a class="nav-link" (click)="onClick('Proyectos')">Proyectos</a>
                         </li>
                     </div>
                     <div class="col">
                         <li class="nav-item">
-                            <a class="nav-link" href="#Contacto">Contacto</a>
+                            <a class="nav-link" (click)="onClick('Contacto')">Contacto</a>
                         </li>
                     </div>
                 </div>

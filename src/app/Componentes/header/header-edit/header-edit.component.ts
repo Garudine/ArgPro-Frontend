@@ -21,6 +21,7 @@ export class HeaderEditComponent implements OnInit {
   url: string = '';
   urlImg: string = '';
   nombre: string = '';
+  vistaImg: boolean = false;
 
   constructor(
     private datosSer: PortfolioService,
@@ -42,20 +43,20 @@ export class HeaderEditComponent implements OnInit {
     });
   }
 
-  uploadImage($event: any, name: string) {
-    const file = $event.target.files[0];
-    const imgRef = ref(this.storage, `Banner/` + name);
-    this.nombre = name;
-    uploadBytes(imgRef, file)
+  uploadImage2($event: any, nameBanner: string) {
+    const fileBanner = $event.target.files[0];
+    const imgRefBanner = ref(this.storage, `Banner/` + nameBanner);
+    this.nombre = nameBanner;
+    uploadBytes(imgRefBanner, fileBanner)
       .then((response) => {
-        this.getImages();
+        this.getImagesBanner();
       })
       .catch((error) => console.log(error));
   }
 
-  getImages() {
-    const imagesRef = ref(this.storage, 'Banner');
-    list(imagesRef)
+  getImagesBanner() {
+    const imgRefBanner = ref(this.storage, 'Banner');
+    list(imgRefBanner)
       .then(async (response) => {
         for (let item of response.items) {
           this.url = await getDownloadURL(item);
@@ -67,14 +68,9 @@ export class HeaderEditComponent implements OnInit {
       .catch((error) => console.log(error));
   }
 
-  clearUrl() {
-    this.url = '';
-    this.urlImg = '';
-  }
-
   onUpdate(): void {
     const id = this.activatedRouter.snapshot.params['id'];
-    this.persona.imgBanner = this.url;
+    this.persona.imgBanner = this.urlImg;
     this.datosSer.update(id, this.persona).subscribe({
       next: (data) => {
         this.router.navigate(['']);
@@ -88,7 +84,8 @@ export class HeaderEditComponent implements OnInit {
 
   uploadImageBanner($event: any) {
     const id = this.activatedRouter.snapshot.params['id'];
-    const name = 'banner_' + id;
-    this.uploadImage($event, name);
+    const nameBanner = 'banner_' + id;
+    this.vistaImg = true;
+    this.uploadImage2($event, nameBanner);
   }
 }

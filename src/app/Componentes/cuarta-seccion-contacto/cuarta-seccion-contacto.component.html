@@ -12,25 +12,26 @@
         <div class="d-flex align-items-center justify-content-center">
             <div class="col-md-6">
                 <div class="p-4 rounded shadow-md">
-                    <form action="https://mailthis.to/" method="POST" encType="multipart/form-data">
+                    <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
                         <div>
-                            <input type="text" name="name" class="form-control transparente" placeholder="Nombre"
-                                required />
+                            <input type="text" name="Nombre" class="form-control transparente" placeholder="Nombre"
+                                formControlName="Nombre" required>
                         </div>
                         <div class="mt-3">
-                            <input type="email" name="_replyto" class="form-control transparente" placeholder="Email"
-                                required />
+                            <input type="email" name="Email" class="form-control transparente" placeholder="Email"
+                                formControlName="Email" required>
                         </div>
                         <div class="mt-3">
-                            <input type="text" name="subject" class="form-control transparente" placeholder="Tema"
-                                required />
+                            <input type="text" name="_subject" class="form-control transparente" placeholder="Tema"
+                                formControlName="Tema" required>
                         </div>
                         <div class="mt-3 mb-3">
                             <textarea name="message" cols="20" rows="6" class="form-control transparente"
-                                placeholder="Tu mensaje" required></textarea>
+                                formControlName="Mensaje" placeholder="Tu mensaje" required></textarea>
                         </div>
+                        <input type="hidden" name="_honeypot" value="">
                         <div class="d-grid gap-2">
-                            <button type="submit" value="send" class="btn btn-dark">Enviar</button>
+                            <button type="submit" class="btn btn-dark" [disabled]="!FormData.valid">Enviar</button>
                         </div>
                     </form>
                 </div>

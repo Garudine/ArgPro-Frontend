@@ -21,6 +21,7 @@ export class PerfilEditComponent implements OnInit {
   url: string = '';
   urlImg: string = '';
   nombre: string = '';
+  vistaImg: boolean = false;
 
   constructor(
     private perfilSer: SerPerfilService,
@@ -43,10 +44,10 @@ export class PerfilEditComponent implements OnInit {
   }
 
   uploadImage($event: any, name: string) {
-    const file = $event.target.files[0];
-    const imgRef = ref(this.storage, `Perfil/` + name);
+    const filePerfil = $event.target.files[0];
+    const imagesRefPerfil = ref(this.storage, `Perfil/` + name);
     this.nombre = name;
-    uploadBytes(imgRef, file)
+    uploadBytes(imagesRefPerfil, filePerfil)
       .then((response) => {
         this.getImages();
       })
@@ -54,8 +55,8 @@ export class PerfilEditComponent implements OnInit {
   }
 
   getImages() {
-    const imagesRef = ref(this.storage, 'Perfil');
-    list(imagesRef)
+    const imagesRefPerfil = ref(this.storage, 'Perfil');
+    list(imagesRefPerfil)
       .then(async (response) => {
         for (let item of response.items) {
           this.url = await getDownloadURL(item);
@@ -67,14 +68,9 @@ export class PerfilEditComponent implements OnInit {
       .catch((error) => console.log(error));
   }
 
-  clearUrl() {
-    this.url = '';
-    this.urlImg = '';
-  }
-
   onUpdate(): void {
     const id = this.activatedRouter.snapshot.params['id'];
-    this.perfil.imgPerfil = this.url;
+    this.perfil.imgPerfil = this.urlImg;
     this.perfilSer.update(id, this.perfil).subscribe({
       next: (data) => {
         this.router.navigate(['']);
@@ -89,6 +85,7 @@ export class PerfilEditComponent implements OnInit {
   uploadImagePerfil($event: any) {
     const id = this.activatedRouter.snapshot.params['id'];
     const name = 'perfil_' + id;
+    this.vistaImg = true;
     this.uploadImage($event, name);
   }
 }

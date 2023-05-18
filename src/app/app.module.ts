@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -27,12 +27,14 @@ import { HabilidadesComponent } from './Componentes/segunda-seccion-habilidades/
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoaderComponent } from './loader/loader.component';
-import { LoadingInterceptor } from './loader/loading.interceptor';
 import { HeaderEditComponent } from './Componentes/header/header-edit/header-edit.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { PerfilEditComponent } from './Componentes/primera-seccion-welcome/perfil-edit/perfil-edit.component';
+import { SerLoaderService } from './servicios/ser-Loader.service';
+import { IndexResolver } from './resolvers/index.resolver';
+import { SerContactoService } from './servicios/ser-contacto.service';
 
 @NgModule({
   declarations: [
@@ -69,11 +71,9 @@ import { PerfilEditComponent } from './Componentes/primera-seccion-welcome/perfi
   ],
   providers: [
     InterceptorProvider,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
-      multi: true,
-    },
+    SerLoaderService,
+    IndexResolver,
+    SerContactoService,
   ],
   bootstrap: [AppComponent],
 })

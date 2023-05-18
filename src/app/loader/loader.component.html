@@ -1,3 +1,9 @@
-<div *ngIf="this.loader.getLoading()" class="cssload-container">
-  <div class="cssload-speeding-wheel"></div>
+<div *ngIf="showSplash" class="app-splash-screen"
+  [ngStyle]="{'opacity': opacityChange, 'transition': splashTransition}">
+
+  <div class="app-splash-content">
+    <div data-text="Cargando ..." class="loading-text">Cargando ...
+    </div>
+  </div>
+
 </div>

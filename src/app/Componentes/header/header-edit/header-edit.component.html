@@ -23,6 +23,10 @@
                     <input type="file" class="form-control" id="imgBanner" (change)="uploadImageBanner($event)"
                         accept=".jpg, .jpeg, .png, .svg" name="imgBanner">
                 </div>
+                <div>
+                    <img [src]="urlImg" class="previmg" alt="Previsualización de la imagen para portada."
+                        *ngIf="vistaImg">
+                </div>
                 <button type="submit" class="btn btn-light">Guardar</button>
             </form>
         </div>

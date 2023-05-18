@@ -8,6 +8,10 @@
                     <input type="file" class="form-control" id="imgPerfil" (change)="uploadImagePerfil($event)"
                         accept=".jpg, .jpeg, .png, .svg" name="imgPerfil">
                 </div>
+                <div>
+                    <img [src]="urlImg" class="previmg" alt="Previsualización de la imagen para portada."
+                        *ngIf="vistaImg">
+                </div>
                 <button type="submit" class="btn btn-light">Guardar</button>
             </form>
         </div>

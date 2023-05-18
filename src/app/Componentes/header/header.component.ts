@@ -5,6 +5,8 @@ import { datosBasicos } from 'src/app/model/persona.model';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/servicios/token.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class HeaderComponent implements OnInit {
   // VAR DATOS
   datos: datosBasicos = null;
+  fragment: any = '';
 
   closeResult!: string;
   EstaLoggeado = false;
@@ -29,11 +32,20 @@ export class HeaderComponent implements OnInit {
     private modalService: NgbModal,
     public datosService: PortfolioService,
     private tokenService: TokenService,
-    private authService: AuthService
+    private authService: AuthService,
+    private viewportScroller: ViewportScroller,
+    private route: ActivatedRoute
   ) {}
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+  }
 
   ngOnInit(): void {
     this.cargarDatos();
+    this.route.fragment.subscribe((fragment) => {
+      this.fragment = fragment;
+    });
 
     if (this.tokenService.getToken()) {
       this.EstaLoggeado = true;
@@ -42,6 +54,14 @@ export class HeaderComponent implements OnInit {
     } else {
       this.EstaLoggeado = false;
     }
+  }
+
+  ngAfterViewChecked(): void {
+    try {
+      if (this.fragment) {
+        document.querySelector('#' + this.fragment).scrollIntoView();
+      }
+    } catch (e) {}
   }
 
   ///LOGIN, NO TOCAR

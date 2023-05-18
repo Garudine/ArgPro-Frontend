@@ -1,3 +1,7 @@
+a {
+    color: white !important;
+}
+
 /*******HERO HEADER*******/
 
 #hero {
@@ -6,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99;
+    z-index: 95;
     position: relative;
 }
 
@@ -54,7 +58,7 @@
     font-weight: 700;
     font-size: 3vh;
     text-transform: uppercase;
-    z-index: 99;
+    z-index: 80;
     position: fixed;
     padding: 1em;
     width: 100%;

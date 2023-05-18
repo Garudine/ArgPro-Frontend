@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Subscription, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SerLoaderService {
-  private loading: boolean = false;
+  subject = new Subject();
 
-  constructor() {}
-
-  setLoading(loading: boolean) {
-    this.loading = loading;
+  subscribe(onNext: any): Subscription {
+    return this.subject.subscribe(onNext);
   }
 
-  getLoading(): boolean {
-    return this.loading;
+  stop() {
+    this.subject.next(false);
   }
 }

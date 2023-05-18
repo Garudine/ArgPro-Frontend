@@ -1,64 +1,37 @@
-.cssload-container {
+.app-splash-screen {
+    background: #000000;
     position: fixed;
-    width: 100%;
+    top: 0;
     left: 0;
     right: 0;
-    top: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    opacity: 1;
 }
 
-.cssload-speeding-wheel {
-    content: "";
-    display: block;
+.loading-text {
+    position: relative;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 5em;
+}
+
+.loading-text:before {
+    content: attr(data-text);
     position: absolute;
-    left: 48%;
-    top: 40%;
-    width: 63px;
-    height: 63px;
-    margin: 0 auto;
-    border: 4px solid rgb(0, 0, 0);
-    border-radius: 50%;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    animation: cssload-spin 500ms infinite linear;
-    -o-animation: cssload-spin 500ms infinite linear;
-    -ms-animation: cssload-spin 500ms infinite linear;
-    -webkit-animation: cssload-spin 500ms infinite linear;
-    -moz-animation: cssload-spin 500ms infinite linear;
+    overflow: hidden;
+    max-width: 7em;
+    white-space: nowrap;
+    color: #fff;
+    animation: loading 8s linear;
 }
 
-@keyframes cssload-spin {
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@-o-keyframes cssload-spin {
-    100% {
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@-ms-keyframes cssload-spin {
-    100% {
-        -ms-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes cssload-spin {
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@-moz-keyframes cssload-spin {
-    100% {
-        -moz-transform: rotate(360deg);
-        transform: rotate(360deg);
+@keyframes loading {
+    0% {
+        max-width: 0;
     }
 }
