@@ -4,14 +4,14 @@
 
 export const environment = {
   firebase: {
-    projectId: 'argentinaprograma-ivanna',
-    appId: '1:901005596004:web:bf68785063c962f27a9671',
-    storageBucket: 'argentinaprograma-ivanna.appspot.com',
+    projectId: 'soyivanna',
+    appId: '1:361228728961:web:8b16fc625d81b7a57beb80',
+    storageBucket: 'soyivanna.appspot.com',
     locationId: 'southamerica-east1',
-    apiKey: 'AIzaSyCY2As-yDZRuBM0X5e2Yel4BHZldJu9_u4',
-    authDomain: 'argentinaprograma-ivanna.firebaseapp.com',
-    messagingSenderId: '901005596004',
-    measurementId: 'G-KRHJRVLWBZ',
+    apiKey: 'AIzaSyAY0bs-dh7SYW3VaQvwUsQm9sgT3RGDcEc',
+    authDomain: 'soyivanna.firebaseapp.com',
+    messagingSenderId: '361228728961',
+    measurementId: 'G-R93VKS4JSL',
   },
   production: false,
   URL: 'http://localhost:8080/',
