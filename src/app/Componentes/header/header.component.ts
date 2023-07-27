@@ -5,7 +5,7 @@ import { datosBasicos } from 'src/app/model/persona.model';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { TokenService } from 'src/app/servicios/token.service';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
 @Component({

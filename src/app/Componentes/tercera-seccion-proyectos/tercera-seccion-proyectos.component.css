@@ -28,6 +28,10 @@ button:hover {
     display: block;
 }
 
+.card {
+    margin-bottom: 10px;
+}
+
 /*******************MODAL****************/
 
 .myform {
